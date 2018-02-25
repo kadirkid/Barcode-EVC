@@ -1,0 +1,38 @@
+<resources>
+    <string name="app_name">IZ</string>
+
+    <string name="sms_message"><![CDATA[ From : %1$s<br/>%2$s]]></string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="text_login">Login</string>
+    <string name="text_not_member">Don\'t have an account? Sign Up</string>
+
+    <string name="hint_name">Name</string>
+    <string name="hint_email">Email</string>
+    <string name="hint_password">Password</string>
+    <string name="hint_confirm_password">Confirm Password</string>
+    <string name="text_register">Register</string>
+    <string name="error_message_name">Enter Full Name</string>
+    <string name="error_message_emailnumber">Enter Valid Number</string>
+    <string name="error_message_age">Enter Age</string>
+    <string name="error_message_password">Enter Password</string>
+    <string name="success_message">Registration Successful</string>
+    <string name="success_login">Log In Successful</string>
+    <string name="text_already_member">Already a member? Login</string>
+    <string name="error_email_exists">Email Already Exists</string>
+    <string name="error_password_match">Password Does Not Matches</string>
+    <string name="error_valid_email_password">Wrong Email or Password</string>
+    <string name="action_settings">Settings</string>
+    <string name="text_hello">Hello,</string>
+    <string name="text_title">Android Tutorials Hub</string>
+    <string name="hint_Age">Age</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="owner_number">Owner Number</string>
+
+    <string name="add_item">Add Item</string>
+    <string name="scan_item">Scan Item</string>
+    <string name="scan">Scan</string>
+    <string name="cash">Cash</string>
+    <string name="e_v_c">E.V.C</string>
+</resources>

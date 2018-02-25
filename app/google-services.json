@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "795943229344",
+    "firebase_url": "https://iz-management.firebaseio.com",
+    "project_id": "iz-management",
+    "storage_bucket": "iz-management.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:795943229344:android:69164cd2fe8fed94",
+        "android_client_info": {
+          "package_name": "iz.iz"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "795943229344-kavtnsr7sgil0cta62sjjc1ndbim3gg6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBWb4gOQx21tuyRnT4fQe5xPIcJiDylkvU"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
