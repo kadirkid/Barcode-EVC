@@ -1,8 +1,11 @@
 package iz.iz.Activities;
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
@@ -14,11 +17,19 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
 import iz.iz.Adapter.ItemAdapter;
 import iz.iz.Model.Item;
+import iz.iz.Model.Transaction;
 import iz.iz.R;
 
 public class ResultActivity extends AppCompatActivity implements View.OnClickListener {
@@ -29,10 +40,23 @@ public class ResultActivity extends AppCompatActivity implements View.OnClickLis
     private ItemAdapter mAdapter;
     private Double sum = 0.0;
 
+    private DatabaseReference databaseReference;
+    private DatabaseReference childref;
+    private FirebaseAuth auth;
+    private ProgressDialog progressDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result);
+
+        auth = FirebaseAuth.getInstance();
+        databaseReference = FirebaseDatabase.getInstance().getReference();
+        childref = databaseReference.child("Transaction");
+
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Finishing Up...");
+
         recyclerView = findViewById(R.id.recyclerView);
 
         try{
@@ -74,14 +98,49 @@ public class ResultActivity extends AppCompatActivity implements View.OnClickLis
         switch (view.getId()){
             case R.id.btn_cash:
                 showTotal(sum);
+                addTransactionToDatabase();
                 break;
 
             case R.id.btn_evc:
+
                 Intent intent = new Intent(this, EVCActivity.class);
                 intent.putExtra("Sum", sum);
+
+                Bundle bundle = new Bundle();
+                bundle.putParcelableArrayList("list", itemList);
+                intent.putExtra("bundle", bundle);
+
                 startActivity(intent);
                 break;
         }
+    }
+
+    private void addTransactionToDatabase() {
+        progressDialog.show();
+        Transaction transaction = new Transaction();
+
+        transaction.setTransactionID();
+        transaction.setCashierID(auth.getCurrentUser().getUid());
+        transaction.setItems(itemList);
+        transaction.setMethod("Cash");
+
+        childref.child(transaction.getTransactionID()).child("Cash").setValue(transaction)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        progressDialog.dismiss();
+
+                        if(task.isSuccessful()) {
+                            Snackbar.make(getCurrentFocus(), "Transaction has been completed",
+                                    Snackbar.LENGTH_SHORT);
+                        }
+                        else{
+                            Toast.makeText(getApplicationContext(), "Failed to add transaction" +
+                                            " to the database",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
     }
 
     private void showTotal(final Double sum) {
